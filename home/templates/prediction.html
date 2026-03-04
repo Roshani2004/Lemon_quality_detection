@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Lemon Detection{% endblock title %}
+
+{% block body %}
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <div class="card shadow p-4">
+            <h2 class="text-warning text-center mb-3">
+                🍋 LEMON DETECTION
+            </h2>
+
+            <p class="text-muted text-center">
+                Lemons (Citrus limon) are highly nutritious, low-calorie fruits rich in Vitamin C and antioxidants.
+            </p>
+
+            <br>
+
+            {% if status %}
+            <div class="alert alert-info text-center">
+                <h5>
+                    Prediction:
+                    <span class="fw-bold text-success">
+                        {{ prediction }}
+                    </span>
+                </h5>
+
+                <p>
+                    Confidence:
+                    <span class="fw-bold text-primary">
+                        {{ confidence }}%
+                    </span>
+                </p>
+            </div>
+            {% endif %}
+
+            <form action="{% url 'prediction' %}" 
+                  method="POST" 
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">
+                        Select Your Lemon Image
+                    </label>
+                    <input type="file" 
+                           class="form-control" 
+                           name="lemon" 
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100">
+                    🔍 Submit
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+{% endblock body %}
